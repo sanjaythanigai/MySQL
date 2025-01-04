@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Define variables
+export DUMP_PATH=/mysql/backup/
+DATE=$(date +%d%b%Y)
+
+# Execute mysqldump
+mysqldump --user=sanjay --password=Admin@123 --all-databases > ${DUMP_PATH}/linux2_all_MySQLdump_${DATE}.sql
+
+# Check the exit code
+RC1=$?
+if [ $RC1 -ne 0 ]; then
+  echo "Backup unsuccessful"
+else
+  echo "Backup successful"
+fi
