@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Define variables
+export DUMP_PATH=/mysql/backup/
+DATE=$(date +%d%b%Y)
+
+# Prompt user for database name
+read -p "Enter the database name to back up: " DB_NAME
+
+# MySQL credentials
+MYSQL_USER="sanjay"
+MYSQL_PASS="Admin@123"
+
+# Ensure the backup directory exists
+mkdir -p $DUMP_PATH
+
+# Execute mysqldump for the specified database
+mysqldump --user=$MYSQL_USER --password=$MYSQL_PASS $DB_NAME > ${DUMP_PATH}/linux2_${DB_NAME}_MySQLdump_${DATE}.sql
+
+# Check the exit code
+RC1=$?
+if [ $RC1 -ne 0 ]; then
+  echo "Backup unsuccessful for database: $DB_NAME"
+else
+  echo "Backup successful for database: $DB_NAME"
+fi
